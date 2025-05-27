@@ -120,13 +120,15 @@ body {
 }
 
 .btn-create {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
   width: 100%;
   padding: 12px;
   font-size: 17px;
   font-weight: bold;
   color: white;
   background-color: var(--color-green);
-  border: none;
   border-radius: 10px;
   cursor: pointer;
   margin-top: 10px;
@@ -170,13 +172,14 @@ body {
     <div class="login-container">
     
       <div class="main-title">Entrar</div>
-      <form class="login-form" action="logar.php" method="post">
+      <form class="login-form" action="logar.php" method="post" name="formulario">
         <input type="text" id="login" name="nome" placeholder="Login" required>
         <input type="password" id="senha" name="senha" placeholder="Senha" required>
         <button type="submit" class="btn">Entrar</button>
         <a href="#" class="forgot-password">Esqueceu a conta?</a>
+
         <div class="divider"></div>
-        <button type="submit" class="btn-create">Criar Conta</button>
+        <a href="cadastro.php" class="btn-create">Criar Conta</a>
       </form>
     </div>
 
