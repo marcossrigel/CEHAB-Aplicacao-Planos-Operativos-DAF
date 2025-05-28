@@ -1,3 +1,35 @@
+<?php
+session_start();
+include("config.php"); 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $cpf = $_POST['cpf'] ?? '';
+    $cpf = mysqli_real_escape_string($conexao, $cpf);
+    $senha = $_POST['senha'] ?? '';
+
+    $nome = mysqli_real_escape_string($conexao, $nome);
+    $senha = mysqli_real_escape_string($conexao, $senha);
+
+    $sql = "SELECT * FROM usuarios WHERE cpf = '$cpf' LIMIT 1";
+    $resultado = mysqli_query($conexao, $sql);
+
+    if (mysqli_num_rows($resultado) === 1) {
+        $usuario = mysqli_fetch_assoc($resultado);
+
+        if (password_verify($senha, $usuario['senha'])) {
+            $_SESSION['id_usuario'] = $usuario['id'];
+            $_SESSION['responsavel'] = $usuario['responsavel'];
+            header("Location: home.php");
+            exit;
+        } else {
+            echo "<script>alert('Senha incorreta!'); window.location.href='index.php';</script>";
+        }
+    } else {
+        echo "<script>alert('Usuário não encontrado!'); window.location.href='index.php';</script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -172,14 +204,17 @@ body {
     <div class="login-container">
     
       <div class="main-title">Entrar</div>
-      <form class="login-form" action="logar.php" method="post" name="formulario">
-        <input type="text" id="login" name="nome" placeholder="Login" required>
+      <form class="login-form" action="index.php" method="post" name="formulario">
+      
+      <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+
         <input type="password" id="senha" name="senha" placeholder="Senha" required>
         <button type="submit" class="btn">Entrar</button>
         <a href="#" class="forgot-password">Esqueceu a conta?</a>
 
         <div class="divider"></div>
         <a href="cadastro.php" class="btn-create">Criar Conta</a>
+      
       </form>
     </div>
 

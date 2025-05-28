@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Sistema de Monitoramento</title>
+  <title>CEHAB - Aplicacao Planos Operativos DAF</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -227,13 +227,13 @@ a.texto-login:hover {
 <div class="container">
   <div class="header">
     <div class="header-text">
-      <h1>Conferencia de Entregas</h1>
+      <h1>PLANOS OPERATIVOS DAF</h1>
       <p>Organize e cadastre suas informações com eficiência e facilidade.</p>
     </div>
 
     <div class="button-group">
-      <a href="formulario.php" class="btn">Entregas</a>
-      <a href="visualizar.php" class="btn btn-secondary">Minhas Entregas</a>
+      <a href="formulario.php" class="btn">Iniciativas</a>
+      <a href="visualizar.php" class="btn btn-secondary">Minhas Iniciativas</a>
       <a href="index.php" class="texto-login">Sair</a>
     </div>
   </div>
