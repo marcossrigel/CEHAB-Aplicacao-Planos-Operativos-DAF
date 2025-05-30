@@ -24,10 +24,14 @@
     }
 
     table {
-      min-width: 1400px;
-      border-collapse: separate;
-      border-spacing: 20px 0;
-      table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 16px 12px; /* 16px entre colunas, 12px entre linhas */
+    table-layout: fixed;
+    }
+
+    tr.subetapa td[contenteditable] {
+    background-color: #f0f0f0;
+    font-style: italic;
     }
 
     .main-title {
@@ -39,10 +43,10 @@
     }
 
     th, td {
-      text-align: left;
-      font-size: 14px;
-      color: #333;
-      padding: 10px 5px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    padding: 0; /* deixamos o padding só no td[contenteditable] */
     }
 
     td, td[contenteditable] {
@@ -52,12 +56,13 @@
     }
 
     td[contenteditable] {
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-        border-radius: 6px;
-        padding: 8px;
-        min-height: 36px;
-        vertical-align: middle;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 36px;
+    vertical-align: middle;
+    box-sizing: border-box;
     }
 
     .button-group {
@@ -130,11 +135,13 @@
             <!-- Linhas serão adicionadas aqui -->
         </tbody>
     </table>
+
 </div>
 
 <div class="button-group">
     <button onclick="addRow()">Adicionar Linha</button>
     <button onclick="removeRow()">Remover Linha</button>
+    <button onclick="addSubetapa()">Adicionar Subetapa</button>
 </div>
 
   <script>
@@ -169,6 +176,60 @@
         tbody.removeChild(tbody.lastChild);
       }
     }
+
+    function addSubetapa() {
+    const tbody = document.querySelector('#tabela-marcos tbody');
+    const linhas = Array.from(tbody.querySelectorAll('tr:not(.subetapa)'));
+
+    if (linhas.length === 0) {
+        alert('Adicione uma linha principal antes.');
+        return;
+    }
+
+    const ultimaLinha = linhas[linhas.length - 1];
+    const itemBase = ultimaLinha.cells[0].textContent.trim();
+
+    if (!itemBase || isNaN(itemBase)) {
+        alert("Digite um número no campo 'ITEM' da linha principal antes de adicionar subetapas.");
+        return;
+    }
+
+    // Contar quantas subetapas já existem para este item
+    const todasAsLinhas = Array.from(tbody.querySelectorAll('tr'));
+    let ultimaLinhaDestino = ultimaLinha;
+    let subIndice = 1;
+
+    for (let i = 0; i < todasAsLinhas.length; i++) {
+        const linha = todasAsLinhas[i];
+        const itemTexto = linha.cells[0]?.textContent.trim();
+
+        if (itemTexto?.startsWith(itemBase + ".")) {
+        ultimaLinhaDestino = linha;
+        const sufixo = itemTexto.split(".")[1];
+        const num = parseInt(sufixo);
+        if (!isNaN(num) && num >= subIndice) {
+            subIndice = num + 1;
+        }
+        }
+    }
+
+    const novaSubetapa = document.createElement('tr');
+    novaSubetapa.classList.add('subetapa');
+
+    for (let i = 0; i < 17; i++) {
+        const cell = document.createElement('td');
+        cell.setAttribute('contenteditable', 'true');
+        if (i === 0) {
+        cell.textContent = `${itemBase}.${subIndice}`;
+        cell.setAttribute('title', cell.textContent);
+        }
+        novaSubetapa.appendChild(cell);
+    }
+
+    // Inserir logo após a última subetapa (ou a linha principal, se for a primeira)
+    tbody.insertBefore(novaSubetapa, ultimaLinhaDestino.nextSibling);
+}
+
   </script>
 
 </body>
