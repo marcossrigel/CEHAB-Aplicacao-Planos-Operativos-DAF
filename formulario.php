@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("config.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -25,20 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $objetivo = $_POST['objetivo'] ?? '';
     $justificativa = $_POST['justificativa'] ?? '';
 
+    $id_usuarios = $_SESSION['id_usuario'];
+    
     $stmt = $conexao->prepare("INSERT INTO iniciativas (
-        iniciativa, ib_status, ib_execucao, ib_secretaria, ib_orgao, ib_diretoria, 
-        ib_cod_subacao, ib_populacao_beneficiada, ib_tema, ib_tipo, ib_responsavel, 
-        data_inicio_previsto, data_termino_previsto, data_inicio_real, data_termino_real,
-        variacao_prevista_dias, dias_ajustados, variacao_real_dias, diretor, objeto, objetivo, justificativa
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    id_usuarios, iniciativa, ib_status, ib_execucao, ib_secretaria, ib_orgao, ib_diretoria, 
+    ib_cod_subacao, ib_populacao_beneficiada, ib_tema, ib_tipo, ib_responsavel, 
+    data_inicio_previsto, data_termino_previsto, data_inicio_real, data_termino_real,
+    variacao_prevista_dias, dias_ajustados, variacao_real_dias, diretor, objeto, objetivo, justificativa
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("ssssssssssssssssssssss", // 22 letras 's'
-        $iniciativa, $ib_status, $ib_execucao, $ib_secretaria, $ib_orgao, $ib_diretoria,
+
+    $stmt->bind_param("issssssssssssssssssssss", // 23 letras: 1 int, 22 strings
+        $id_usuarios, $iniciativa, $ib_status, $ib_execucao, $ib_secretaria, $ib_orgao, $ib_diretoria,
         $ib_cod_subacao, $ib_populacao_beneficiada, $ib_tema, $ib_tipo, $ib_responsavel,
         $data_inicio_previsto, $data_termino_previsto, $data_inicio_real, $data_termino_real,
-        $variacao_prevista_dias, $dias_ajustados, $variacao_real_dias, $diretor, $objeto, $objetivo, $justificativa
+        $variacao_prevista_dias, $dias_ajustados, $variacao_real_dias, $diretor,
+        $objeto, $objetivo, $justificativa
     );
 
+    
     if ($stmt->execute()) {
         header("Location: formulario.php?sucesso=1&nome=" . urlencode($iniciativa));
         exit;
@@ -354,7 +360,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div id="modalSucesso" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000">
   <div style="background:#fff; padding:30px; border-radius:8px; max-width:400px; text-align:center">
     <h2 style="margin-bottom:15px">Sucesso!</h2>
-    <p id="sucessoTexto"></p>
+    <p id="sucessoTexto"></p> 
     <button onclick="window.location.href='home.php'" style="margin-top:20px; padding:10px 20px; background:#42b72a; color:#fff; border:none; border-radius:6px; cursor:pointer">Fechar</button>
     </div>
 </div>
