@@ -1,166 +1,266 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cronograma</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8;
-      padding: 30px;
-    }
+  <title>CEHAB - Aplicacao Planos Operativos DAF</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-white: #ffffff;
+  --color-gray: #e3e8ec;
+  --color-dark: #1d2129;
+  --color-green: #42b72a;
+  --color-green-hover: #36a420;
+  --color-gray-dark: #6c757d;
+  --color-gray-hover: #5a6268;
+}
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    h1 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 25px;
-    }
+body {
+  background-color: var(--color-gray);
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
+.container {
+  width: 90%;
+  max-width: 1200px;
+  background-color: var(--color-white);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: auto;
+}
 
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      font-size: 14px;
-    }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
 
-    table th {
-      background-color: #e3e8ef;
-      text-align: left;
-    }
+.header-text {
+  flex: 1;
+  min-width: 250px;
+}
 
-    input[type="text"],
-    input[type="date"],
-    textarea {
-      width: 100%;
-      padding: 6px;
-      font-size: 13px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+.header-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 10px;
+}
 
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
+.header-text p {
+  font-size: 16px;
+  color: #666;
+}
 
-    .actions button {
-      padding: 10px 20px;
-      font-size: 14px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 200px;
+  align-items: flex-end;
+}
 
-    .btn-salvar { background-color: #22c55e; color: #fff; }
-    .btn-voltar { background-color: #3b82f6; color: #fff; }
-    .btn-linha { background-color: #06b6d4; color: #fff; margin-right: 10px; }
-    .btn-linha:hover, .btn-voltar:hover, .btn-salvar:hover { opacity: 0.9; }
+.btn {
+  background-color: var(--color-green);
+  color: var(--color-white);
+  text-decoration: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.3s;
+  width: 200px;
+  display: inline-block; 
+  border: none;          
+  outline: none;
+  cursor: pointer; 
+}
 
-    @media (max-width: 768px) {
-      table th, table td {
-        font-size: 12px;
-        padding: 6px;
-      }
-    }
-  </style>
+.btn:hover {
+  background-color: var(--color-green-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-gray-dark);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-gray-hover);
+}
+
+.btn-sair {
+  text-align: center;
+  display: inline-block;
+  color: var(--color-blue);
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 20px auto;
+  display: block;
+}
+
+.accordion {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.accordion-content {
+  margin-top: 15px;
+  text-align: left;
+  color: #555;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.button-group a.texto-login {
+  align-self: center;
+  margin-top: 10px;
+}
+
+.texto-login {
+  text-align: center;
+  display: inline-block;
+  color: var(--color-blue);
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 20px auto;
+  display: block;
+}
+
+a.texto-login{
+  color: red;               
+  text-decoration: none;  
+  font-weight: bold;
+}
+
+a.texto-login:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header-text h1 {
+    font-size: 22px;
+  }
+
+  .header-text p {
+    font-size: 14px;
+  }
+
+  .button-group {
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .accordion-header h2 {
+    font-size: 16px;
+  }
+
+  .accordion-content {
+    font-size: 13px;
+  }
+
+  .texto-login {
+    font-size: 13px;
+  }
+}
+
+</style>
+
 </head>
 <body>
-  <div class="container">
-    <h1 id="titulo-cronograma">Cronograma</h1>
 
-    <form action="#" method="post">
-      <table id="tabela-marcos">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Etapa</th>
-            <th>Responsável</th>
-            <th>Início Previsto</th>
-            <th>Término Previsto</th>
-            <th>Variação Dias</th>
-            <th>%</th>
-            <th>Início Real</th>
-            <th>Término Real</th>
-            <th>Status</th>
-            <th>Observação</th>
-            <th>Problemática</th>
-            <th>Ação Corretiva</th>
-            <th>Responsável</th>
-            <th>Prazo</th>
-            <th>% da Etapa</th>
-            <th>Peso</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" name="item[]"></td>
-            <td><textarea name="etapa[]"></textarea></td>
-            <td><input type="text" name="responsavel[]"></td>
-            <td><input type="date" name="inicio_previsto[]"></td>
-            <td><input type="date" name="termino_previsto[]"></td>
-            <td><input type="text" name="variacao_dias[]"></td>
-            <td><input type="text" name="percentual[]"></td>
-            <td><input type="date" name="inicio_real[]"></td>
-            <td><input type="date" name="termino_real[]"></td>
-            <td><input type="text" name="status[]"></td>
-            <td><textarea name="observacao[]"></textarea></td>
-            <td><textarea name="problematica[]"></textarea></td>
-            <td><textarea name="acao_corretiva[]"></textarea></td>
-            <td><input type="text" name="responsavel_acao[]"></td>
-            <td><input type="date" name="prazo[]"></td>
-            <td><input type="text" name="porcento_etapa[]"></td>
-            <td><input type="text" name="peso[]"></td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container">
+  <div class="header">
+    <div class="header-text">
+      <h1>PLANOS OPERATIVOS DAF</h1>
+      <p>Organize e cadastre suas informações com eficiência e facilidade.</p>
+    </div>
 
-      <div class="actions">
-        <div>
-          <button type="button" class="btn-linha" onclick="adicionarLinha()">Adicionar Linha</button>
-          <button type="button" class="btn-linha" onclick="removerLinha()">Remover Linha</button>
-        </div>
-        <div>
-          <button type="submit" class="btn-salvar">Salvar</button>
-          <button type="button" class="btn-voltar" onclick="window.history.back()">&lt; Voltar</button>
-        </div>
-      </div>
-    </form>
+    <div class="button-group">
+      <a href="formulario.php" class="btn">Iniciativas</a>
+      <a href="visualizar.php" class="btn btn-secondary">Minhas Iniciativas</a>
+      <a href="index.php" class="texto-login">Sair</a>
+    </div>
   </div>
 
-  <script>
-    function adicionarLinha() {
-      const tabela = document.querySelector("#tabela-marcos tbody");
-      const novaLinha = tabela.rows[0].cloneNode(true);
-      novaLinha.querySelectorAll("input, textarea").forEach(input => input.value = "");
-      tabela.appendChild(novaLinha);
-    }
+  <div class="accordion" onclick="toggleAccordion()">
+    <div class="accordion-header">
+      <h2>Ajuda</h2>
+      <span id="accordion-icon">⌄</span>
+    </div>
+    <div id="accordion-content" class="accordion-content hidden">
+      <p>Clique no botao de "Entregas" para fornecer seus dados de conferência.</p>
+      <p>No botão "Minhas Entregas" é possível visualizar os dados cadastrados anteriormente.</p>
+    </div>
+  </div>
 
-    function removerLinha() {
-      const tabela = document.querySelector("#tabela-marcos tbody");
-      if (tabela.rows.length > 1) tabela.deleteRow(-1);
-    }
+</div>
 
-    // Definir nome do cronograma dinamicamente (ex: "Cronograma Locação de Veículos")
-    const iniciativa = "Veículos"; // exemplo fixo, substitua por PHP dinâmico se quiser
-    const tipo = "Locação";
-    document.getElementById("titulo-cronograma").innerText = `Cronograma ${tipo} de ${iniciativa}`;
-  </script>
+<script>
+  
+  function toggleAccordion() {
+    const content = document.getElementById('accordion-content');
+    const icon = document.getElementById('accordion-icon');
+    content.classList.toggle('hidden');
+    icon.textContent = content.classList.contains('hidden') ? '⌄' : '⌃';
+  }
+
+</script>
+
 </body>
 </html>
