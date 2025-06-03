@@ -132,6 +132,16 @@ $resultado = $conexao->query($sql);
       <p><strong>Objeto:</strong> <?= $row['objeto']; ?></p>
       <p><strong>Objetivo:</strong> <?= nl2br($row['objetivo']); ?></p>
       <p><strong>Justificativa:</strong> <?= nl2br($row['justificativa']); ?></p>
+<hr>
+      <p>
+        <form action="cronograma.php" method="get" style="display:inline;">
+          <input type="hidden" name="id_iniciativa" value="<?= $row['id']; ?>">
+          <button type="submit" style="padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            Acessar Cronograma
+          </button>
+        </form>
+      </p>
+
     </div>
   <?php endwhile; ?>
 
